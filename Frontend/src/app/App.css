@@ -1,1 +1,107 @@
 @import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-background: #131315;
+  --color-surface: #131315;
+  --color-surface-container: #201f22;
+  --color-surface-container-low: #1c1b1d;
+  --color-surface-container-high: #2a2a2c;
+  --color-surface-container-lowest: #0e0e10;
+  --color-surface-container-highest: #353437;
+  --color-surface-variant: #353437;
+  --color-surface-bright: #39393b;
+  --color-surface-dim: #131315;
+  --color-surface-tint: #e9c400;
+  
+  --color-primary: #fff6df;
+  --color-primary-container: #ffd700;
+  --color-primary-fixed: #ffe16d;
+  --color-primary-fixed-dim: #e9c400;
+
+  --color-secondary: #c8c6c9;
+  --color-secondary-container: #47464a;
+  --color-secondary-fixed: #e4e1e5;
+  --color-secondary-fixed-dim: #c8c6c9;
+
+  --color-tertiary: #f9f5fa;
+  --color-tertiary-container: #dcd9dd;
+  --color-tertiary-fixed: #e4e1e6;
+  --color-tertiary-fixed-dim: #c8c5ca;
+
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+
+  --color-outline: #999077;
+  --color-outline-variant: #4d4732;
+
+  --color-on-background: #e5e1e4;
+  --color-on-surface: #e5e1e4;
+  --color-on-surface-variant: #d0c6ab;
+  
+  --color-on-primary: #3a3000;
+  --color-on-primary-container: #705e00;
+  --color-on-primary-fixed: #221b00;
+  --color-on-primary-fixed-variant: #544600;
+
+  --color-on-secondary: #303033;
+  --color-on-secondary-container: #b6b4b8;
+  --color-on-secondary-fixed: #1b1b1e;
+  --color-on-secondary-fixed-variant: #47464a;
+
+  --color-on-tertiary: #303033;
+  --color-on-tertiary-container: #5f5e62;
+  --color-on-tertiary-fixed: #1b1b1e;
+  --color-on-tertiary-fixed-variant: #47464a;
+
+  --color-on-error: #690005;
+  --color-on-error-container: #ffdad6;
+
+  --color-inverse-surface: #e5e1e4;
+  --color-inverse-on-surface: #313032;
+  --color-inverse-primary: #705d00;
+
+  /* Border Radius */
+  --radius-default: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+
+  /* Spacing */
+  --spacing-unit: 8px;
+  --spacing-container-padding-desktop: 64px;
+  --spacing-container-padding-mobile: 24px;
+  --spacing-gutter: 24px;
+  --spacing-stack-sm: 12px;
+  --spacing-stack-md: 24px;
+  --spacing-stack-lg: 48px;
+
+  /* Font Families */
+  --font-body-lg: "Hanken Grotesk", sans-serif;
+  --font-label-md: "Geist", monospace;
+  --font-label-sm: "Geist", monospace;
+  --font-headline-lg: "Hanken Grotesk", sans-serif;
+  --font-headline-md: "Hanken Grotesk", sans-serif;
+  --font-body-md: "Hanken Grotesk", sans-serif;
+  --font-headline-lg-mobile: "Hanken Grotesk", sans-serif;
+  --font-display: "Hanken Grotesk", sans-serif;
+}
+
+/* Custom Styles from Stitch */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.form-input-focus:focus-within {
+  border-color: #FFD700;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #09090B;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #27272A;
+  border-radius: 10px;
+}
