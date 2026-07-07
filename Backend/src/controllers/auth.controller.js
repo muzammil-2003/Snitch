@@ -34,3 +34,16 @@ export const register = catchAsync(async (req, res) => {
     const user = await userModel.create({ email, contact, password, fullName, role: isSeller ? "seller" : "buyer" })
     await sendTokenResponse(user, res, "User registered successfully.")
 })
+
+export const login = catchAsync(async (req, res) => {
+    const { email, password } = req.body
+    const user = await userModel.findOne({ email })
+    if (!user) {
+        return res.status(401).json({ message: "Invalid email or password." })
+    }
+    const isMatch = user.comparePasswords(password)
+    if (!isMatch) {
+        return res.status(401).json({ message: "Invalid email or password." })
+    }
+    await sendTokenResponse(user, res, "User logged in successfully.")
+})
