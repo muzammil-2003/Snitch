@@ -22,6 +22,13 @@ function Register() {
     }));
   };
 
+  const handleGoogleLogin = () => {
+    const popup = window.open('http://localhost:3000/api/auth/google', 'Google Login', 'width=600,height=600');
+    if (!popup) {
+      alert("Popup was blocked. Please allow popups for this site.");
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await handleRegister({
@@ -60,19 +67,19 @@ function Register() {
       </header>
 
       {/* Main Content Canvas */}
-      <main className="grow flex flex-col items-center justify-start py-stack-lg px-container-padding-mobile">
+      <main className="grow flex flex-col items-center justify-start py-6 px-container-padding-mobile">
         <div className="w-full max-w-120 animate-in fade-in slide-in-from-bottom-4 duration-700">
           {/* Branding/Identity Visual */}
-          <div className="mb-stack-lg text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-container-high border border-surface-variant mb-stack-md">
+          <div className="mb-6 text-center">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-surface-container-high border border-surface-variant mb-2">
               <span
-                className="material-symbols-outlined text-primary-container text-3xl"
+                className="material-symbols-outlined text-primary-container text-2xl"
                 style={{ fontVariationSettings: "'FILL' 1" }}
               >
                 person_add
               </span>
             </div>
-            <h2 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-2">
+            <h2 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-1">
               Join the Collective
             </h2>
             <p className="font-body-md text-on-surface-variant max-w-xs mx-auto">
@@ -81,9 +88,9 @@ function Register() {
           </div>
 
           {/* Form */}
-          <form className="space-y-stack-md" onSubmit={handleSubmit}>
+          <form className="space-y-4" onSubmit={handleSubmit}>
             {/* Full Name */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <label className="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest ml-1">
                 Full Name
               </label>
@@ -96,7 +103,7 @@ function Register() {
                   value={formData.fullName}
                   onChange={handleChange}
                   required
-                  className="w-full h-14 bg-surface-container-low border border-surface-variant rounded-lg pl-12 pr-4 text-on-background font-body-md placeholder:text-on-tertiary-container focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all duration-200"
+                  className="w-full h-11 bg-surface-container-low border border-surface-variant rounded-lg pl-12 pr-4 text-on-background font-body-md placeholder:text-on-tertiary-container focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all duration-200"
                   placeholder="Enter your legal name"
                   type="text"
                 />
@@ -104,7 +111,7 @@ function Register() {
             </div>
 
             {/* Email Address */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <label className="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest ml-1">
                 Email Address
               </label>
@@ -117,7 +124,7 @@ function Register() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full h-14 bg-surface-container-low border border-surface-variant rounded-lg pl-12 pr-4 text-on-background font-body-md placeholder:text-on-tertiary-container focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all duration-200"
+                  className="w-full h-11 bg-surface-container-low border border-surface-variant rounded-lg pl-12 pr-4 text-on-background font-body-md placeholder:text-on-tertiary-container focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all duration-200"
                   placeholder="name@firm.com"
                   type="email"
                 />
@@ -125,7 +132,7 @@ function Register() {
             </div>
 
             {/* Contact Number */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <label className="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest ml-1">
                 Contact Number
               </label>
@@ -138,7 +145,7 @@ function Register() {
                   value={formData.contactNumber}
                   onChange={handleChange}
                   required
-                  className="w-full h-14 bg-surface-container-low border border-surface-variant rounded-lg pl-12 pr-4 text-on-background font-body-md placeholder:text-on-tertiary-container focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all duration-200"
+                  className="w-full h-11 bg-surface-container-low border border-surface-variant rounded-lg pl-12 pr-4 text-on-background font-body-md placeholder:text-on-tertiary-container focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all duration-200"
                   placeholder="03001234567"
                   type="tel"
                 />
@@ -146,7 +153,7 @@ function Register() {
             </div>
 
             {/* Password */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <label className="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest ml-1">
                 Password
               </label>
@@ -159,7 +166,7 @@ function Register() {
                   value={formData.password}
                   onChange={handleChange}
                   required
-                  className="w-full h-14 bg-surface-container-low border border-surface-variant rounded-lg pl-12 pr-12 text-on-background font-body-md placeholder:text-on-tertiary-container focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all duration-200"
+                  className="w-full h-11 bg-surface-container-low border border-surface-variant rounded-lg pl-12 pr-12 text-on-background font-body-md placeholder:text-on-tertiary-container focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all duration-200"
                   placeholder="••••••••••••"
                   type={showPassword ? "text" : "password"}
                 />
@@ -176,25 +183,25 @@ function Register() {
             </div>
 
             {/* Register as Seller */}
-            <div className="pt-4">
-              <label className="flex items-center group cursor-pointer p-4 bg-surface-container-lowest border border-surface-variant rounded-lg hover:border-primary-container/50 transition-colors">
+            <div className="pt-2">
+              <label className="flex items-center group cursor-pointer p-3 bg-surface-container-lowest border border-surface-variant rounded-lg hover:border-primary-container/50 transition-colors">
                 <div className="relative flex items-center">
                   <input
                     name="isSeller"
                     checked={formData.isSeller}
                     onChange={handleChange}
-                    className="peer appearance-none w-6 h-6 border-2 border-surface-variant rounded bg-transparent checked:bg-primary-container checked:border-primary-container transition-all cursor-pointer"
+                    className="peer appearance-none w-5 h-5 border-2 border-surface-variant rounded bg-transparent checked:bg-primary-container checked:border-primary-container transition-all cursor-pointer"
                     type="checkbox"
                   />
-                  <span className="material-symbols-outlined absolute left-0 w-6 h-6 text-on-primary-container text-center text-sm opacity-0 peer-checked:opacity-100 pointer-events-none">
+                  <span className="material-symbols-outlined absolute left-0 w-5 h-5 text-on-primary-container text-center text-sm opacity-0 peer-checked:opacity-100 pointer-events-none">
                     check
                   </span>
                 </div>
-                <div className="ml-4 flex flex-col">
-                  <span className="font-body-md text-on-background">
+                <div className="ml-3 flex flex-col">
+                  <span className="font-body-md text-on-background text-sm">
                     I am a seller
                   </span>
-                  <span className="font-label-sm text-on-surface-variant">
+                  <span className="font-label-sm text-on-surface-variant text-[11px]">
                     Access merchant tools and dashboard
                   </span>
                 </div>
@@ -202,9 +209,9 @@ function Register() {
             </div>
 
             {/* Action Button */}
-            <div className="pt-stack-md">
+            <div className="pt-2">
               <button
-                className="w-full h-14 bg-primary-container text-on-primary hover:opacity-90 active:scale-[0.98] transition-all duration-150 font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full h-11 bg-primary-container text-on-primary hover:opacity-90 active:scale-[0.98] transition-all duration-150 font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 cursor-pointer"
                 type="submit"
               >
                 Sign Up
@@ -213,8 +220,28 @@ function Register() {
             </div>
           </form>
 
+          <div className="relative mt-5 mb-4">
+            <div className="absolute inset-0 flex items-center" aria-hidden="true">
+              <div className="w-full border-t border-surface-variant"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="bg-background px-4 text-on-surface-variant font-label-sm uppercase tracking-widest">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="w-full h-11 bg-surface-container-low border border-surface-variant hover:border-primary-container/50 text-on-background active:scale-[0.98] transition-all duration-150 font-label-md text-label-md rounded-lg flex items-center justify-center gap-3 cursor-pointer"
+          >
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="h-5 w-5" />
+            Continue with Google
+          </button>
+
           {/* Bottom Link */}
-          <div className="mt-stack-lg text-center pb-20">
+          <div className="mt-5 text-center pb-10">
             <p className="font-body-md text-on-surface-variant">
               Already have an account?
               <Link

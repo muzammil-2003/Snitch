@@ -19,6 +19,13 @@ function Login() {
     }));
   };
 
+  const handleGoogleLogin = () => {
+    const popup = window.open('http://localhost:3000/api/auth/google', 'Google Login', 'width=600,height=600');
+    if (!popup) {
+      alert("Popup was blocked. Please allow popups for this site.");
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData)
@@ -56,27 +63,27 @@ function Login() {
       </header>
 
       {/* Main Content Canvas */}
-      <main className="flex-grow flex flex-col items-center justify-center py-stack-lg px-container-padding-mobile">
+      <main className="flex-grow flex flex-col items-center justify-center py-6 px-container-padding-mobile">
         <div className="w-full max-w-[480px] animate-in fade-in slide-in-from-bottom-4 duration-700">
           {/* Branding/Identity Visual */}
-          <div className="mb-stack-lg text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-container-high border border-surface-variant mb-stack-md">
+          <div className="mb-6 text-center">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-surface-container-high border border-surface-variant mb-2">
               <span
-                className="material-symbols-outlined text-primary-container text-3xl"
+                className="material-symbols-outlined text-primary-container text-2xl"
                 style={{ fontVariationSettings: "'FILL' 1" }}
               >
                 login
               </span>
             </div>
-            <h2 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-2">
+            <h2 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-1">
               Welcome Back
             </h2>
           </div>
 
           {/* Form */}
-          <form className="space-y-stack-md" onSubmit={handleSubmit}>
+          <form className="space-y-4" onSubmit={handleSubmit}>
             {/* Email Address */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <label className="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest ml-1">
                 Email Address
               </label>
@@ -89,7 +96,7 @@ function Login() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full h-14 bg-surface-container-low border border-surface-variant rounded-lg pl-12 pr-4 text-on-background font-body-md placeholder:text-on-tertiary-container focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all duration-200"
+                  className="w-full h-11 bg-surface-container-low border border-surface-variant rounded-lg pl-12 pr-4 text-on-background font-body-md placeholder:text-on-tertiary-container focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all duration-200"
                   placeholder="name@firm.com"
                   type="email"
                 />
@@ -97,7 +104,7 @@ function Login() {
             </div>
 
             {/* Password */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <label className="flex justify-between block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest ml-1">
                 <span>Password</span>
                 <Link to="#" className="text-primary-container hover:underline tracking-normal lowercase capitalize normal-case text-[12px]">Forgot password?</Link>
@@ -111,7 +118,7 @@ function Login() {
                   value={formData.password}
                   onChange={handleChange}
                   required
-                  className="w-full h-14 bg-surface-container-low border border-surface-variant rounded-lg pl-12 pr-12 text-on-background font-body-md placeholder:text-on-tertiary-container focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all duration-200"
+                  className="w-full h-11 bg-surface-container-low border border-surface-variant rounded-lg pl-12 pr-12 text-on-background font-body-md placeholder:text-on-tertiary-container focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all duration-200"
                   placeholder="••••••••••••"
                   type={showPassword ? "text" : "password"}
                 />
@@ -128,9 +135,9 @@ function Login() {
             </div>
 
             {/* Action Button */}
-            <div className="pt-stack-md">
+            <div className="pt-2">
               <button
-                className="w-full h-14 bg-primary-container text-on-primary hover:opacity-90 active:scale-[0.98] transition-all duration-150 font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full h-11 bg-primary-container text-on-primary hover:opacity-90 active:scale-[0.98] transition-all duration-150 font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 cursor-pointer"
                 type="submit"
               >
                 Log In
@@ -139,8 +146,28 @@ function Login() {
             </div>
           </form>
 
+          <div className="relative mt-5 mb-4">
+            <div className="absolute inset-0 flex items-center" aria-hidden="true">
+              <div className="w-full border-t border-surface-variant"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="bg-background px-4 text-on-surface-variant font-label-sm uppercase tracking-widest">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="w-full h-11 bg-surface-container-low border border-surface-variant hover:border-primary-container/50 text-on-background active:scale-[0.98] transition-all duration-150 font-label-md text-label-md rounded-lg flex items-center justify-center gap-3 cursor-pointer"
+          >
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="h-5 w-5" />
+            Continue with Google
+          </button>
+
           {/* Bottom Link */}
-          <div className="mt-stack-lg text-center pb-20">
+          <div className="mt-5 text-center pb-10">
             <p className="font-body-md text-on-surface-variant">
               Don't have an account?
               <Link

@@ -23,6 +23,23 @@ async function sendTokenResponse(user, res, message) {
     })
 }
 
+async function sendGooglePopupResponse(user, res) {
+    const token = jwt.sign({
+        id: user._id
+    }, config.JWT_SECRET, { expiresIn: '7d' })
+    res.cookie('token', token)
+    res.send(` <!DOCTYPE html>
+    <html>
+    <body>
+    <script>
+    window.opener.postMessage({success: true}, "http://localhost:5173");
+    window.close();
+    </script>
+    </body>
+    </html>`)
+
+}
+
 export const register = catchAsync(async (req, res) => {
     const { email, contact, password, fullName, isSeller } = req.body
     const existingUser = await userModel.findOne({
@@ -41,9 +58,27 @@ export const login = catchAsync(async (req, res) => {
     if (!user) {
         return res.status(401).json({ message: "Invalid email or password." })
     }
-    const isMatch = user.comparePasswords(password)
+    const isMatch = await user.comparePasswords(password)
     if (!isMatch) {
         return res.status(401).json({ message: "Invalid email or password." })
     }
     await sendTokenResponse(user, res, "User logged in successfully.")
+})
+
+export const googleCallback = catchAsync(async (req, res) => {
+    console.log(req.user)
+    const user = req.user
+    const existingUser = await userModel.findOne({ email: user.emails[0].value })
+    if (existingUser) {
+        return await sendGooglePopupResponse(existingUser, res)
+    } else {
+        const newUser = await userModel.create({
+            email: user.emails[0].value,
+            fullName: user.displayName,
+            provider: "google",
+            googleId: user.id,
+            role: "buyer"
+        })
+        return await sendGooglePopupResponse(newUser, res)
+    }
 })
