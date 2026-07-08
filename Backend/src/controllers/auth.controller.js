@@ -23,23 +23,6 @@ async function sendTokenResponse(user, res, message) {
     })
 }
 
-async function sendGooglePopupResponse(user, res) {
-    const token = jwt.sign({
-        id: user._id
-    }, config.JWT_SECRET, { expiresIn: '7d' })
-    res.cookie('token', token)
-    res.send(` <!DOCTYPE html>
-    <html>
-    <body>
-    <script>
-    window.opener.postMessage({success: true}, "http://localhost:5173");
-    window.close();
-    </script>
-    </body>
-    </html>`)
-
-}
-
 export const register = catchAsync(async (req, res) => {
     const { email, contact, password, fullName, isSeller } = req.body
     const existingUser = await userModel.findOne({
@@ -66,19 +49,17 @@ export const login = catchAsync(async (req, res) => {
 })
 
 export const googleCallback = catchAsync(async (req, res) => {
-    console.log(req.user)
-    const user = req.user
-    const existingUser = await userModel.findOne({ email: user.emails[0].value })
-    if (existingUser) {
-        return await sendGooglePopupResponse(existingUser, res)
-    } else {
-        const newUser = await userModel.create({
-            email: user.emails[0].value,
-            fullName: user.displayName,
-            provider: "google",
-            googleId: user.id,
-            role: "buyer"
-        })
-        return await sendGooglePopupResponse(newUser, res)
+    const { id, displayName, emails, photos } = req.user
+    const email = emails[0].value
+    const profilePic = photos[0].value
+
+    let user = await userModel.findOne({ email })
+    if (!user) {
+        user = await userModel.create({ googleId: id, email, provider: "google", fullName: displayName, })
     }
+    const token = jwt.sign({
+        id: user._id
+    }, config.JWT_SECRET, { expiresIn: '7d' })
+    res.cookie('token', token)
+    res.redirect('http://localhost:5173/')
 })

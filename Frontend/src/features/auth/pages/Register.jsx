@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../hook/useAuth";
+import ContinueWithGoogle from '../components/ContinueWithGoogle'
 
 function Register() {
   const { handleRegister } = useAuth()
@@ -22,12 +23,7 @@ function Register() {
     }));
   };
 
-  const handleGoogleLogin = () => {
-    const popup = window.open('http://localhost:3000/api/auth/google', 'Google Login', 'width=600,height=600');
-    if (!popup) {
-      alert("Popup was blocked. Please allow popups for this site.");
-    }
-  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -220,25 +216,7 @@ function Register() {
             </div>
           </form>
 
-          <div className="relative mt-5 mb-4">
-            <div className="absolute inset-0 flex items-center" aria-hidden="true">
-              <div className="w-full border-t border-surface-variant"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="bg-background px-4 text-on-surface-variant font-label-sm uppercase tracking-widest">
-                Or continue with
-              </span>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleGoogleLogin}
-            className="w-full h-11 bg-surface-container-low border border-surface-variant hover:border-primary-container/50 text-on-background active:scale-[0.98] transition-all duration-150 font-label-md text-label-md rounded-lg flex items-center justify-center gap-3 cursor-pointer"
-          >
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="h-5 w-5" />
-            Continue with Google
-          </button>
+          <ContinueWithGoogle />
 
           {/* Bottom Link */}
           <div className="mt-5 text-center pb-10">
