@@ -3,7 +3,7 @@ import catchAsync from '../utils/catchAsync.js'
 import { uploadFile } from '../services/storage.service.js'
 
 export const createProduct = catchAsync(async (req, res) => {
-    const {title, description, price} = req.body
+    const {title, description, priceAmount, priceCurrency} = req.body
     const seller = req.user
     const images = await Promise.all(req.files.map(async (file) => {
         return await uploadFile({
@@ -14,8 +14,8 @@ export const createProduct = catchAsync(async (req, res) => {
 
     const product = await productModel.create({
         title, description, price: {
-            amount: price,
-            currency: 'PKR'
+            amount: priceAmount,
+            currency: priceCurrency || 'PKR'
         },
         images,
         seller: seller._id
