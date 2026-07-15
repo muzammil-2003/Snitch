@@ -37,3 +37,12 @@ export const getSellerProducts = catchAsync(async (req, res) => {
         products
     })
 })
+
+export const getAllProducts = catchAsync(async (req, res) => {
+    const products = await productModel.find()
+    res.status(200).json({
+        message: "Products fetched successfully.",
+        success: true,
+        products
+    })
+})

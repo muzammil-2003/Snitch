@@ -64,6 +64,14 @@ export const googleCallback = catchAsync(async (req, res) => {
     res.redirect('http://localhost:5173/')
 })
 
+export const logout = catchAsync(async (req, res) => {
+    res.clearCookie('token')
+    res.status(200).json({
+        message: "Logged out successfully.",
+        success: true,
+    })
+})
+
 export const getMe = catchAsync(async (req, res) => {
     const user = req.user
     res.status(200).json({
