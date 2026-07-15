@@ -11,11 +11,11 @@ export const useProduct = () => {
         return data.product
     }
 
-    const getSellerProduct = async () => {
+    const handleGetSellerProduct = async () => {
         const data = await getSellerProduct()
         dispatch(setSellerProducts(data.products))
         return data.product
     }
 
-    return {handleCreateProduct, getSellerProduct}
+    return {handleCreateProduct, handleGetSellerProduct}
 }
