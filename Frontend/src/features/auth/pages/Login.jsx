@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../hook/useAuth";
 import ContinueWithGoogle from '../components/ContinueWithGoogle'
+import { useSelector } from "react-redux";
 
 function Login() {
   const { handleLogin } = useAuth();
   const navigate = useNavigate();
+  const user = useSelector(state => state.auth.user)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -20,20 +22,33 @@ function Login() {
     }));
   };
 
+  const redirectUser = (userData) => {
+    if (userData?.role === "buyer") {
+      navigate("/", { replace: true });
+    }
+    else if (userData?.role === "seller") {
+      navigate("/seller/dashboard", { replace: true });
+    }
+  };
 
+  useEffect(() => {
+    if (user) {
+      redirectUser(user);
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
-    const result = await handleLogin({
-      email: formData.email,
-      password: formData.password
-    })
-    console.log(result)
-    if (result?.success) {
-      navigate("/", { replace: true })
+    try {
+      await handleLogin({
+        email: formData.email,
+        password: formData.password
+      });
+
+    } catch (error) {
+      console.error("Login failed:", error);
     }
-  };
+  }
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);

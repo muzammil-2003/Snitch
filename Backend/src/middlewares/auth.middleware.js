@@ -19,3 +19,17 @@ export const authenticateSeller = catchAsync(async (req, res, next) => {
     req.user = user
     next()
 })
+
+export const authenticateUser = catchAsync(async (req, res, next) => {
+    const token = req.cookies.token
+    if (!token) {
+        return res.status(401).json({ message: "Unauthorized." })
+    }
+    const decoded = jwt.verify(token, config.JWT_SECRET)
+    const user = await userModel.findById(decoded.id)
+    if (!user) {
+        return res.status(401).json({ message: "Unauthorized." })
+    }
+    req.user = user
+    next()
+})
