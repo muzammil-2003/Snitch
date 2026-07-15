@@ -74,8 +74,8 @@ function Login() {
       </header>
 
       {/* Main Content Canvas */}
-      <main className="flex-grow flex flex-col items-center justify-center py-6 px-container-padding-mobile">
-        <div className="w-full max-w-[480px] animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <main className="grow flex flex-col items-center justify-center py-6 px-container-padding-mobile">
+        <div className="w-full max-w-120 animate-in fade-in slide-in-from-bottom-4 duration-700">
           {/* Branding/Identity Visual */}
           <div className="mb-6 text-center">
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-surface-container-high border border-surface-variant mb-2">
@@ -116,9 +116,9 @@ function Login() {
 
             {/* Password */}
             <div className="space-y-1.5">
-              <label className="flex justify-between block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest ml-1">
+              <label className="flex justify-between font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest ml-1">
                 <span>Password</span>
-                <Link to="#" className="text-primary-container hover:underline tracking-normal lowercase capitalize normal-case text-[12px]">Forgot password?</Link>
+                <Link to="#" className="text-primary-container hover:underline tracking-normal lowercase text-[12px]">Forgot password?</Link>
               </label>
               <div className="group relative flex items-center">
                 <span className="material-symbols-outlined absolute left-4 text-on-surface-variant group-focus-within:text-primary-container transition-colors">
