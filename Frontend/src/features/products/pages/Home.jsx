@@ -4,6 +4,8 @@ import { useProduct } from '../hooks/useProduct.js'
 import { useAuth } from '../../auth/hook/useAuth.js'
 import { useNavigate } from 'react-router'
 import { setUser } from '../../auth/state/auth.slice.js'
+import Navbar from '../../../components/Navbar'
+import Footer from '../../../components/Footer'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -38,6 +40,18 @@ const Home = () => {
     }
     init()
   }, [])
+
+  // Handle hash scrolling on page load/navigation
+  useEffect(() => {
+    if (window.location.hash) {
+      const el = document.getElementById(window.location.hash.substring(1))
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth' })
+        }, 150)
+      }
+    }
+  }, [loading])
 
   const handleLogout = () => {
     dispatch(setUser(null))
@@ -108,78 +122,8 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background text-on-surface font-body-md flex flex-col overflow-x-hidden custom-scrollbar">
       
-      {/* Editorial Top Announcement */}
-      <div className="w-full bg-primary-container text-on-primary py-2 px-4 text-center text-xs font-label-sm uppercase tracking-widest">
-        Free shipping on all domestic orders above PKR 3,000 &bull; Easy 7-day exchanges
-      </div>
-
-      {/* Elegant Header */}
-      <header className="w-full sticky top-0 z-40 bg-background/90 backdrop-blur-lg border-b border-surface-container-highest/40">
-        <div className="w-full max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          
-          {/* Logo / Brand */}
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate("/")}>
-            <span className="font-display text-2xl font-black tracking-[0.2em] bg-linear-to-r from-primary to-primary-container bg-clip-text text-transparent">
-              SNITCH
-            </span>
-          </div>
-
-          {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wider uppercase text-on-surface-variant">
-            <button onClick={() => navigate("/")} className="text-primary hover:text-primary-container transition-colors cursor-pointer">Shop</button>
-            <button onClick={() => {
-              const el = document.getElementById("catalog-section");
-              el?.scrollIntoView({ behavior: 'smooth' });
-            }} className="hover:text-primary-container transition-colors cursor-pointer">Collections</button>
-            <button onClick={() => {
-              const el = document.getElementById("values-section");
-              el?.scrollIntoView({ behavior: 'smooth' });
-            }} className="hover:text-primary-container transition-colors cursor-pointer">Our Values</button>
-          </nav>
-
-          {/* User Profile & Cart Mock */}
-          <div className="flex items-center gap-6">
-            {user && user.role === "seller" && (
-              <button 
-                onClick={() => navigate("/seller/dashboard")} 
-                className="text-xs font-bold uppercase tracking-wider text-primary-container hover:underline cursor-pointer"
-              >
-                Seller Panel
-              </button>
-            )}
-
-            {user ? (
-              <div className="flex items-center gap-4">
-                <span className="hidden sm:inline text-xs font-semibold uppercase tracking-wider text-on-surface/85">
-                  Hi, {user.fullName?.split(" ")[0]}
-                </span>
-                <button
-                  onClick={handleLogout}
-                  title="Log Out"
-                  className="p-2 rounded-full hover:bg-surface-container-high hover:text-error transition-colors active:scale-95 duration-150 text-on-surface-variant cursor-pointer"
-                >
-                  <span className="material-symbols-outlined block text-xl">logout</span>
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => navigate("/login")}
-                  className="text-xs font-bold uppercase tracking-wider text-on-surface hover:text-primary-container transition-colors cursor-pointer"
-                >
-                  Sign In
-                </button>
-                <button
-                  onClick={() => navigate("/register")}
-                  className="bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary transition-all duration-200 text-xs font-bold uppercase tracking-wider py-2.5 px-5 rounded-md cursor-pointer"
-                >
-                  Join
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </header>
+      {/* Shared Navbar */}
+      <Navbar />
 
       {/* Editorial High-Fashion Hero Section */}
       <section className="relative h-[85vh] flex items-center justify-center bg-black overflow-hidden">
@@ -188,7 +132,7 @@ const Home = () => {
              style={{ backgroundImage: `url('https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1920&q=80')` }}>
         </div>
         {/* Soft elegant gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-black/50"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-black/50"></div>
         <div className="absolute inset-0 bg-black/40"></div>
         
         {/* Hero Copy */}
@@ -198,7 +142,7 @@ const Home = () => {
           </span>
           <h1 className="text-5xl md:text-8xl font-black font-display tracking-tight text-white uppercase leading-none">
             REDEFINE <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-container via-primary-fixed to-white">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-primary-container via-primary-fixed to-white">
               YOUR STYLE
             </span>
           </h1>
@@ -314,7 +258,7 @@ const Home = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="space-y-4 animate-pulse">
-                <div className="aspect-[3/4] bg-surface-container rounded-none"></div>
+                <div className="aspect-3/4 bg-surface-container rounded-none"></div>
                 <div className="h-4 bg-surface-container rounded w-3/4"></div>
                 <div className="h-4 bg-surface-container rounded w-1/4"></div>
               </div>
@@ -348,13 +292,14 @@ const Home = () => {
                 <div
                   key={product._id}
                   className="group flex flex-col h-full space-y-4"
+                  onClick={()=> navigate(`/product/${product._id}`)}
                 >
                   {/* Portrait Product Image Frame */}
-                  <div className="relative aspect-[3/4] bg-surface-container overflow-hidden cursor-pointer">
+                  <div className="relative aspect-3/4 bg-surface-container overflow-hidden cursor-pointer">
                     <img
                       src={getActiveImage(product)}
                       alt={product.title}
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-[0.7s] ease-out"
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
                     
                     {/* Media Assets Camera Count Badge */}
@@ -367,7 +312,7 @@ const Home = () => {
 
                     {/* Image Quick Switcher Bar on Hover */}
                     {images.length > 1 && (
-                      <div className="absolute bottom-0 left-0 right-0 justify-center gap-1.5 flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 bg-gradient-to-t from-black/85 to-transparent py-4">
+                      <div className="absolute bottom-0 left-0 right-0 justify-center gap-1.5 flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 bg-linear-to-t from-black/85 to-transparent py-4">
                         {images.slice(0, 5).map((img, idx) => (
                           <div
                             key={img._id}
@@ -404,7 +349,10 @@ const Home = () => {
                         {formatPrice(product.price?.amount, product.price?.currency)}
                       </span>
                       <button
-                        onClick={() => alert(`Direct bag addition for "${product.title}" coming soon! Connect checkout API.`)}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          alert(`Direct bag addition for "${product.title}" coming soon! Connect checkout API.`)
+                        }}
                         className="text-[11px] font-bold uppercase tracking-widest border-b border-white hover:border-primary-container hover:text-primary-container pb-0.5 transition-colors cursor-pointer"
                       >
                         Quick Add
@@ -435,7 +383,7 @@ const Home = () => {
             />
             <button
               type="submit"
-              className="flex-shrink-0 bg-transparent text-xs font-bold uppercase tracking-widest text-primary-container hover:text-white transition-colors py-1 px-2 cursor-pointer"
+              className="shrink-0 bg-transparent text-xs font-bold uppercase tracking-widest text-primary-container hover:text-white transition-colors py-1 px-2 cursor-pointer"
             >
               Subscribe
             </button>
@@ -443,51 +391,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Editorial Footer */}
-      <footer className="w-full bg-black border-t border-surface-container-high/20 py-16 text-on-surface-variant/80 text-xs tracking-wide">
-        <div className="w-full max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 border-b border-surface-container-high/20 pb-12">
-          
-          <div className="space-y-4">
-            <span className="font-display text-2xl font-black tracking-[0.2em] text-white">
-              SNITCH
-            </span>
-            <p className="text-xs text-gray-400 font-light leading-relaxed">
-              Premium apparel curated and designed for bold self-expression. High-quality construction. Slow fashion.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            <h4 className="font-display font-bold uppercase tracking-widest text-white text-xs">Shop</h4>
-            <ul className="space-y-2 text-gray-400 font-light">
-              <li><a href="#catalog-section" className="hover:text-white transition-colors">All Products</a></li>
-              <li><a href="#catalog-section" className="hover:text-white transition-colors">New Arrivals</a></li>
-              <li><a href="#catalog-section" className="hover:text-white transition-colors">Essentials</a></li>
-            </ul>
-          </div>
-
-          <div className="space-y-3">
-            <h4 className="font-display font-bold uppercase tracking-widest text-white text-xs">Help</h4>
-            <ul className="space-y-2 text-gray-400 font-light">
-              <li><a href="#" className="hover:text-white transition-colors">Order Tracking</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Shipping & Returns</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Sizing Guide</a></li>
-            </ul>
-          </div>
-
-          <div className="space-y-3">
-            <h4 className="font-display font-bold uppercase tracking-widest text-white text-xs">Legal</h4>
-            <ul className="space-y-2 text-gray-400 font-light">
-              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="w-full max-w-7xl mx-auto px-6 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-gray-500 text-[10px] font-label-sm uppercase tracking-widest">
-          <p>&copy; {new Date().getFullYear()} SNITCH Clothing Co. All rights reserved.</p>
-          <p>Designed for Cohort 2.0</p>
-        </div>
-      </footer>
+      {/* Shared Footer */}
+      <Footer />
     </div>
   )
 }
