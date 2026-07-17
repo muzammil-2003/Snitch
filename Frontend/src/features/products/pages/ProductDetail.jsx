@@ -115,7 +115,7 @@ const ProductDetail = () => {
         <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-on-surface-variant/60 mb-8">
           <button onClick={() => navigate("/")} className="hover:text-primary-container transition-colors cursor-pointer">Shop</button>
           <span>/</span>
-          <span className="text-on-surface-variant/80 truncate max-w-[200px]">{product.title}</span>
+          <span className="text-on-surface-variant/80 truncate max-w-50">{product.title}</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
@@ -124,7 +124,7 @@ const ProductDetail = () => {
           <div className="lg:col-span-7 flex flex-col md:flex-row-reverse gap-4">
 
             {/* Active Large Image Display Frame */}
-            <div className="grow relative aspect-[4/5] bg-surface-container overflow-hidden group">
+            <div className="grow relative aspect-4/5 bg-surface-container overflow-hidden group">
               <img
                 src={activeImage}
                 alt={product.title}
@@ -150,7 +150,7 @@ const ProductDetail = () => {
 
             {/* Thumbnail Navigation Bar */}
             {images.length > 1 && (
-              <div className="flex flex-row md:flex-col gap-3 overflow-x-auto md:overflow-y-auto md:max-h-[600px] justify-start md:justify-start py-2 md:py-0 shrink-0 custom-scrollbar">
+              <div className="flex flex-row md:flex-col gap-3 overflow-x-auto md:overflow-y-auto md:max-h-150 justify-start md:justify-start py-2 md:py-0 shrink-0 custom-scrollbar">
                 {images.map((img, idx) => (
                   <button
                     key={img._id}
@@ -206,7 +206,7 @@ const ProductDetail = () => {
                 </div> */}
                 <div className="flex justify-between border-b border-surface-container-highest/20 pb-2">
                   <span>Sold By</span>
-                  <span className="font-semibold text-on-surface truncate max-w-[200px]" title={product.seller}>{product.seller}</span>
+                  <span className="font-semibold text-on-surface truncate max-w-50" title={product.seller}>{product.seller}</span>
                 </div>
                 <div className="flex justify-between border-b border-surface-container-highest/20 pb-2">
                   <span>Release Date</span>
