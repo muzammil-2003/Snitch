@@ -132,7 +132,7 @@ const ProductDetail = () => {
               <img
                 src={activeImage}
                 alt={product.title}
-                className="block w-auto mx-auto max-h-[600px] object-contain transition-transform duration-[0.6s] ease-out group-hover:scale-105"
+                className="block w-auto mx-auto max-h-150 object-contain transition-transform duration-[0.6s] ease-out group-hover:scale-105"
               />
               {displayImages.length > 1 && (
                 <>
@@ -292,7 +292,7 @@ const ProductDetail = () => {
                                 onChange={(e) =>
                                   setSelectedAttrValues(prev => ({ ...prev, [key]: e.target.value }))
                                 }
-                                className="flex-1 bg-[#201f22] border border-white/20 focus:border-primary-container text-on-surface text-xs px-3 py-2 outline-none transition-colors cursor-pointer"
+                                className="flex-1 bg-surface-container border border-white/20 focus:border-primary-container text-on-surface text-xs px-3 py-2 outline-none transition-colors cursor-pointer"
                               >
                                 {options.map(opt => (
                                   <option key={opt} value={opt}>{opt}</option>
