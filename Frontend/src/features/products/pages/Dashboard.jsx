@@ -408,6 +408,7 @@ const Dashboard = () => {
                                     onClick={() => {
                                         setSelectedProduct(product);
                                         setModalActiveImageIndex(0);
+                                        navigate(`/seller/product/${product._id}`);
                                     }}
                                     className="bg-surface-container-low border border-surface-variant rounded-2xl overflow-hidden hover:border-primary-container/30 hover:shadow-[0_0_25px_rgba(255,215,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full"
                                 >
@@ -503,6 +504,7 @@ const Dashboard = () => {
                                             onClick={() => {
                                                 setSelectedProduct(product);
                                                 setModalActiveImageIndex(0);
+                                                navigate(`/seller/product/${product._id}`);
                                             }}
                                             className="border-b border-surface-variant/50 hover:bg-surface-container/20 transition-colors cursor-pointer group"
                                         >

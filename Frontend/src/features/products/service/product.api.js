@@ -24,3 +24,40 @@ export const getProductById = async (productId) => {
     const response = await productApiInstance.get(`/detail/${productId}`)
     return response.data
 }
+
+export const createVariant = async (productId, formData) => {
+    const response = await productApiInstance.post(`/${productId}/variants`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+    return response.data
+}
+
+export const updateVariant = async (productId, variantId, formData) => {
+    const response = await productApiInstance.patch(`/${productId}/variants/${variantId}`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+    return response.data
+}
+
+export const deleteVariant = async (productId, variantId) => {
+    const response = await productApiInstance.delete(`/${productId}/variants/${variantId}`)
+    return response.data
+}
+
+export const updateProduct = async (productId, formData) => {
+    const response = await productApiInstance.put(`/${productId}`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+    return response.data
+}
+
+export const deleteProduct = async (productId, keepVariants) => {
+    const response = await productApiInstance.delete(`/${productId}?keepVariants=${keepVariants}`)
+    return response.data
+}
